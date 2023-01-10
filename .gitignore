@@ -1,0 +1,2 @@
+#not including database connection infos for security reason
+**/database_server.php
