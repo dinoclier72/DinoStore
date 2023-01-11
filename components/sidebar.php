@@ -1,5 +1,5 @@
 <div id = "MainSiderBar" class = "Sidebar">
-    <a href="index.php"><img src="img/logo.png" alt="Logo" class = "logo">DinoStore</a>
+    <div class="logoContainer"><a href="index.php"><img src="img/logo.png" alt="Logo" class = "logo">DinoStore</a></div>
     <div id = "Bar1" class = "BlackBarH"></div>
     <a href="">Produits</a>
     <a href="">Commandes</a>
@@ -7,15 +7,10 @@
     <a href="">Cadeaux de Fidelité</a>
 </div>
 <div id = "sideBartoggle" class = "toggleBar">
-    <button class="openbtn" onclick="toggleBar()">></button>
+    <button id= "toggleButton" class="openbtn" onclick="toggleBar()">></button>
 </div>
 
-<style>
-.logoContainer{
-    display: inline-block;
-    position: relative;
-}
-
+<style> 
 .toggleBar{
     width: 20px;
     height : 100%;
@@ -76,6 +71,7 @@ transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
 
 /* logo parmaters */
 .sidebar .logo{
+    vertical-align: middle;
     width : 50px;
     height: 50px;
 }
@@ -84,14 +80,17 @@ transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
 <script>
     /*script for the toggle of the bar */
     var toggled = false;
+    var sideBarWidth = "20%";
 
     function toggleBar(){
         if(!toggled){
-            document.getElementById("MainSiderBar").style.width = "25%";
-            document.getElementById("sideBartoggle").style.marginLeft = "25%";
+            document.getElementById("MainSiderBar").style.width = sideBarWidth;
+            document.getElementById("sideBartoggle").style.marginLeft = sideBarWidth;
+            document.getElementById("toggleButton").innerText  = "<";
         }else{
             document.getElementById("MainSiderBar").style.width = "0";
             document.getElementById("sideBartoggle").style.marginLeft = "0";
+            document.getElementById("toggleButton").innerText = ">";
         }
         toggled = !toggled;
     }

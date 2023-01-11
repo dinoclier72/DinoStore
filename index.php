@@ -5,6 +5,8 @@
     </head>
     <body>
         <?php include './components/sidebar.php' ?>
-        <p>Des trucs cools en preparation</p>
+        <div class = "content">
+            <p>Des trucs cools en preparation</p>
+        </div>
     </body>
 </html>
