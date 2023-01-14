@@ -1,7 +1,7 @@
 <div id = "MainSiderBar" class = "Sidebar">
     <div class="logoContainer"><a href="index.php"><img src="img/logo.png" alt="Logo" class = "logo">DinoStore</a></div>
     <div id = "Bar1" class = "BlackBarH"></div>
-    <a href="">Produits</a>
+    <a href="products.php">Produits</a>
     <a href="">Commandes</a>
     <a href="">Clients</a>
     <a href="">Cadeaux de Fidelité</a>

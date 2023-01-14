@@ -5,8 +5,9 @@
     </head>
     <body>
         <?php include './components/sidebar.php' ?>
-        <div class = "content">
-            <p>Des trucs cools en preparation</p>
-        </div>
+        <p>Les produits</p>
+        <p>Les clients</p>
+        <p>Les commandes</p>
+        <p>Les cadeaux de fidelité</p>
     </body>
 </html>
