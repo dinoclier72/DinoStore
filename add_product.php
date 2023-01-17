@@ -1,5 +1,15 @@
 <?php
-    $table = ["sony","Louis vuiton"];
+    include("./components/database_server.php");
+
+    $querry = 'SELECT name FROM company ORDER BY name';
+
+    $result = $database -> query($querry);
+
+    $table = [];
+
+    for($i=0;$i<$result->num_rows;$i++){
+        array_push($table,$result->fetch_row()[0]);
+    }
 
     $tableLength = count($table);
 ?>
@@ -17,7 +27,7 @@
             </div>
             <div class = "bar"></div>
             <div class = "all_the_content">
-                <form action="addProductToDataBase.php">
+                <form action="sql_actions/addProductToDataBase.php" method="post">
                     <p>Nom du Produit: <input type="text" name = "nom"></p>
                     <div class = "companyStuff">
                         <label for="Companies">Entrepeise: </label>
