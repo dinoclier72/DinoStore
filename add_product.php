@@ -39,7 +39,7 @@
                                 }
                             ?>
                         </select>
-                        <button>+</button>
+                        <a href="add_company.php"><button type="button">+</button></a>
                     </div>
                     <button>AJOUTER</button>
                 </form>
