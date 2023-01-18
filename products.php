@@ -41,6 +41,13 @@ $tableLength = count($table);
                     </form>
                     <a href="add_product.php"><button>+</button></a>
                 </div>
+                <?php
+                    session_start();
+                    if(isset($_SESSION["NEW_ADDITION"]) and $_SESSION["NEW_ADDITION"]){
+                        echo("<p>produit ajouté</p>");
+                        $_SESSION["NEW_ADDITION"] = FALSE;
+                    }
+                ?>
                 <div class = "products_container">
                     <?php
                         for($i=0;$i<$tableLength;$i++){
