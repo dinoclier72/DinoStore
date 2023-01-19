@@ -13,13 +13,6 @@
     border-radius: 10px; /* add your own styles */
   }
 
-  .product_header{
-    margin-top: 1%;
-    display: flex;
-    justify-content: center;
-    gap: 2%;
-  }
-
   .form{
     width: 30%;
   }

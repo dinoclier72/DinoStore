@@ -23,7 +23,7 @@
         <?php include './components/sidebar.php' ?>
         <div class = "content">
             <div class = "title">
-                oui
+            <?php include('./components/product_title.php')?>
             </div>
             <div class = "bar"></div>
             <div class = "all_the_content">

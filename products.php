@@ -30,11 +30,11 @@ $tableLength = count($table);
         <?php include './components/sidebar.php' ?>
         <div class = "content">
             <div class = "title">
-                oui
+                <?php include('./components/product_title.php')?>
             </div>
             <div class = "bar"></div>
             <div class = "all_the_content">
-                <div class = "product_header">
+                <div class = "general_commands">
                     <form action="" method = "post">
                         <input type="text" placeholder = "produit" class="search_bar" name="recherche">
                         <input type="submit">
