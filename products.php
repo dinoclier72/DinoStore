@@ -1,6 +1,6 @@
 <?php
 include("components/database_server.php");
-$result = $database->query("SELECT product.name,company.name FROM product JOIN company ON product.id_company=company.id_company ORDER BY company.name");
+$result = $database->query("SELECT product_name,company_name FROM product NATURAL JOIN company ORDER BY company_name");
 $table = [];
 for($i=0;$i<$result->num_rows;$i++){
     array_push($table,$result->fetch_row());

@@ -1,18 +1,18 @@
 CREATE TABLE membership_rank(
     id_rank INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50)
+    rank_name VARCHAR(50)
 );
 
 CREATE TABLE client(
     id_client INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
+    client_name VARCHAR(50) NOT NULL,
     membership INTEGER REFERENCES membership_rank(id_rank) 
 );
 
 CREATE TABLE socials(
     id_socials INTEGER AUTO_INCREMENT PRIMARY KEY,
     type VARCHAR(50) NOT NULL,
-    name VARCHAR(50) NOT NULL,
+    social_name VARCHAR(50) NOT NULL,
     id_client INTEGER REFERENCES client(id_client)
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE redeemable(
     id_redeemable INTEGER AUTO_INCREMENT PRIMARY KEY,
     points INTEGER NOT NULL DEFAULT 0,
     description TEXT,
-    name VARCHAR(50) NOT NULL,
+    redeemable_name VARCHAR(50) NOT NULL,
     gift_rank INTEGER REFERENCES membership(id_rank)
 );
 
@@ -61,7 +61,7 @@ CREATE TABLE client_lives_at(
 
 CREATE TABLE orders_status(
     id_orders_status INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50)
+    order_status_name VARCHAR(50)
 );
 
 CREATE TABLE orders(
@@ -72,12 +72,12 @@ CREATE TABLE orders(
 
 CREATE TABLE company(
     id_company INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50)
+    company_name VARCHAR(50)
 );
 
 CREATE TABLE product(
     id_product INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
+    product_name VARCHAR(50) NOT NULL,
     id_company INTEGER REFERENCES company(id_company)
 );
 
@@ -105,7 +105,7 @@ CREATE TABLE parcel(
 
 CREATE TABLE status_order_product(
     id_status_order_product INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50)
+    status_order_product_name VARCHAR(50)
 );
 
 CREATE TABLE product_order(

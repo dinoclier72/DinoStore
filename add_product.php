@@ -1,7 +1,7 @@
 <?php
     include("./components/database_server.php");
 
-    $querry = 'SELECT name FROM company ORDER BY name';
+    $querry = 'SELECT company_name FROM company ORDER BY company_name';
 
     $result = $database -> query($querry);
 

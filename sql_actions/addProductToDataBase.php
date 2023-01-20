@@ -10,9 +10,9 @@ session_start();
 $_SESSION["NEW_ADDITION"] = TRUE;
 
 include('../components/database_server.php');
-$productInsert = $database->prepare("INSERT INTO product(name,id_company) VALUES (?,?)");
+$productInsert = $database->prepare("INSERT INTO product(product_name,id_company) VALUES (?,?)");
 
-$fetchCompanyId = $database->prepare("SELECT id_company FROM company WHERE name = ?");
+$fetchCompanyId = $database->prepare("SELECT id_company FROM company WHERE company_name = ?");
 $fetchCompanyId->bind_param("s",$_POST["Companies"]);
 $fetchCompanyId->execute();
 $fetchCompanyId->store_result();
