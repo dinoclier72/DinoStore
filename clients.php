@@ -1,20 +1,31 @@
 <?php
 include("components/database_server.php");
-$result = $database->query("SELECT product.name,company.name FROM product JOIN company ON product.id_company=company.id_company ORDER BY company.name");
+$result = $database->query("SELECT client_name,rank_name,id_client FROM client NATURAL JOIN membership_rank");
 $table = [];
 for($i=0;$i<$result->num_rows;$i++){
     array_push($table,$result->fetch_row());
+    $subTable = [];
+    $subResult = $database->query("SELECT type,social_name FROM socials WHERE id_client = ".$table[$i][2]);
+    for($j=0;$j<$subResult->num_rows;$j++){
+        array_push($subTable,$subResult->fetch_row());
+    }
+    array_push($table[$i],$subTable);
 }
 $tableLength = count($table);
 ?>
 
 <?php
-function clientCard($ClientName,$ClientSocials){
+function clientCard($ClientName,$ClientRank,$ClientSocials){
     echo("<div class = 'clientCard'>");
     echo("<p>".$ClientName."</p>");
+    echo("<p>".$ClientRank."</p>");
+    echo("<p>Socials</p>");
+    echo("<div class = 'clientCardSocials'>");
     for($i=0;$i<count($ClientSocials);$i++){
-        echo("<p>".$ClientSocials[$i]."</p>");
+        echo("<p>".$ClientSocials[$i][0].":".$ClientSocials[$i][1]."</p>");
     }
+    echo("</div>");
+    echo("<button>EDIT</button>");
     echo("</div>");
 }
 ?>
@@ -23,6 +34,7 @@ function clientCard($ClientName,$ClientSocials){
     <head>
         <title>Le DinoStore</title>
         <?php include './components/header.php' ?>
+        <link rel="stylesheet" href="css/clients.css">
     </head>
     <body>
         <?php include './components/sidebar.php' ?>
@@ -40,6 +52,12 @@ function clientCard($ClientName,$ClientSocials){
                     <a href="add_client.php"><button>+</button></a>
                 </div>
                 <div class = "clients_container">
+                    <?php
+                        for($i=0;$i<$tableLength;$i++){
+                            $currentCLient = $table[$i];
+                            clientCard($currentCLient[0],$currentCLient[1],$currentCLient[3]);
+                        }
+                    ?>
                 </div>
             </div>
         </div>

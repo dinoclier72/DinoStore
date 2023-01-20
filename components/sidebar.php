@@ -3,7 +3,7 @@
     <div id = "Bar1" class = "BlackBarH"></div>
     <a href="products.php">Produits</a>
     <a href="orders.php">Commandes</a>
-    <a href="">Clients</a>
+    <a href="clients.php">Clients</a>
     <a href="">Cadeaux de Fidelité</a>
 </div>
 <div id = "sideBartoggle" class = "toggleBar">

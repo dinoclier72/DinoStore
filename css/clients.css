@@ -1,0 +1,23 @@
+.clients_container{
+    margin: 1%w;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 10px; /* space between columns, change as needed */
+    grid-row-gap: 10px; /* space between rows, change as needed */
+    margin-top: 1%;
+  }
+
+  .clientCard {
+    padding: 5px; /* add your own styles */
+    border: 1px solid black; /* add your own styles */
+    border-radius: 10px; /* add your own styles */
+  }
+  .clientCardSocials {
+    padding: 5px; /* add your own styles */
+    border: 1px solid black; /* add your own styles */
+    border-radius: 10px; /* add your own styles */
+  }
+
+  .form{
+    width: 30%;
+  }
