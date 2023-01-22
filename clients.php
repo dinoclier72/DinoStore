@@ -1,6 +1,6 @@
 <?php
 include("components/database_server.php");
-$result = $database->query("SELECT client_name,rank_name,id_client FROM client NATURAL JOIN membership_rank");
+$result = $database->query("SELECT client_name,rank_name,id_client FROM client NATURAL JOIN membership_rank ORDER BY client_name");
 $table = [];
 for($i=0;$i<$result->num_rows;$i++){
     array_push($table,$result->fetch_row());
