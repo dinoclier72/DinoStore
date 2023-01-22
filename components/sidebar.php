@@ -13,10 +13,11 @@
 <style> 
 .toggleBar{
     width: 20px;
-    height : 100%;
     left-margin : 0;
     background-color : #554640;
     transition: 0.5s;
+    display: block;
+    overflow: auto;
 }
 
 /* Style the button that is used to open the sidepanel */

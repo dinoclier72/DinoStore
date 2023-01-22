@@ -6,7 +6,7 @@ CREATE TABLE membership_rank(
 CREATE TABLE client(
     id_client INTEGER AUTO_INCREMENT PRIMARY KEY,
     client_name VARCHAR(50) NOT NULL,
-    membership INTEGER REFERENCES membership_rank(id_rank) 
+    membership INTEGER REFERENCES membership_rank(id_rank) DEFAULT 1
 );
 
 CREATE TABLE socials(
