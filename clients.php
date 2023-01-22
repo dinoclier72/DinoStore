@@ -10,12 +10,18 @@ for($i=0;$i<$result->num_rows;$i++){
         array_push($subTable,$subResult->fetch_row());
     }
     array_push($table[$i],$subTable);
+    $subResult = $database->query("SELECT SUM(quantity) FROM points WHERE id_client =".$table[$i][2]);
+    $pointsNum = $subResult->fetch_row()[0];
+    if($pointsNum == NuLL){
+        $pointsNum = '0';
+    }
+    array_push($table[$i],$pointsNum);
 }
 $tableLength = count($table);
 ?>
 
 <?php
-function clientCard($ClientName,$ClientRank,$ClientSocials){
+function clientCard($ClientName,$ClientRank,$ClientSocials,$ClientId,$clientPointsTotal){
     echo("<div class = 'clientCard'>");
     echo("<p>".$ClientName."</p>");
     echo("<p>".$ClientRank."</p>");
@@ -25,7 +31,11 @@ function clientCard($ClientName,$ClientRank,$ClientSocials){
         echo("<p>".$ClientSocials[$i][0].":".$ClientSocials[$i][1]."</p>");
     }
     echo("</div>");
+    echo("<p>Total des points:".$clientPointsTotal."</p>");
+    echo("<form method = 'post' action = 'edit_client.php'>");
+    echo("<input type = 'hidden' value = ".$ClientId." name = 'clientID'>");
     echo("<button>EDIT</button>");
+    echo("</form>");
     echo("</div>");
 }
 ?>
@@ -55,7 +65,7 @@ function clientCard($ClientName,$ClientRank,$ClientSocials){
                     <?php
                         for($i=0;$i<$tableLength;$i++){
                             $currentCLient = $table[$i];
-                            clientCard($currentCLient[0],$currentCLient[1],$currentCLient[3]);
+                            clientCard($currentCLient[0],$currentCLient[1],$currentCLient[3],$currentCLient[2],$currentCLient[4]);
                         }
                     ?>
                 </div>
