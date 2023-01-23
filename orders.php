@@ -61,6 +61,7 @@ function order_table($table){
         <?php include './components/header.php' ?>
         <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
         <script type="text/javascript" src="js/htmlTableToExcel.js"></script>
+        <link rel="stylesheet" href="css/table_effect.css">
     </head>
     <body>
         <?php include './components/sidebar.php' ?>

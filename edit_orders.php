@@ -98,7 +98,7 @@ function dropdownSelectOne($List,$selected,$Name){
                     echo("<button>ADD</button>
                     </form>");
                 ?>
-                <button>FACTURE</button>        
+                <a href="facture.php"><button>FACTURE</button></a>        
             </div>
         </div>
     </body>
