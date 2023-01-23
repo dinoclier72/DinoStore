@@ -69,7 +69,7 @@ function order_table($table){
                         <input type="submit">
                     </form>
                     <a href="add_order.php"><button>+</button></a>
-                    <a href=""><button id="button" onclick="htmlTableToExcel('.xlsx')">EXPORTER EN EXCEL</button></a>
+                    <button id="button" onclick="htmlTableToExcel('xlsx')">EXPORTER EN EXCEL</button>
                 </div>
                 <div class = "orders_container">
                     <?php order_table($table);?>
