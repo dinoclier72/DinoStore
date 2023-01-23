@@ -1,9 +1,15 @@
 <?php
 include("components/database_server.php");
-$result = $database->query("SELECT * FROM commande_infos");
+$result = $database->query("SELECT DISTINCT id_orders,client_name,order_status_name FROM commande_info");
 $table = [];
 for($i=0;$i<$result->num_rows;$i++){
     array_push($table,$result->fetch_row());
+    $subResult = $database->query("SELECT product_name,quantity,price,status_order_product_name FROM commande_info");
+    $subTable = [];
+    for($j=0;$j<$subResult->num_rows;$j++){
+        array_push($subTable,$subResult->fetch_row());
+    }
+    array_push($table[$i],$subTable);
 }
 $tableLength = count($table);
 ?>
@@ -13,6 +19,7 @@ function order_table($table){
     echo("<table id='tblToExcl'>");
     echo("<tr>");
     echo("<td>id_order</td>");
+    echo("<td>client_name</td>");
     echo("<td>order_status</td>");
     echo("<td>product_name</td>");
     echo("<td>quantity</td>");
@@ -20,7 +27,23 @@ function order_table($table){
     echo("<td>status</td>");
     echo("</tr>");
     for($i=0;$i<count($table);$i++){
-        //do something
+        $current_order = $table[$i];
+        $order_size = count($current_order[3]);
+        echo("<tr>");
+        echo("<td rowspan = '".$order_size."'>".$current_order[0]."</td>");
+        echo("<td rowspan = '".$order_size."'>".$current_order[1]."</td>");
+        echo("<td rowspan = '".$order_size."'>".$current_order[2]."</td>");
+        for($j=0;$j<$order_size;$j++){
+            if($j>0){
+                echo("<tr>");
+            }
+            echo("<td>".$current_order[3][$j][0]."</td>");
+            echo("<td>".$current_order[3][$j][1]."</td>");
+            echo("<td>".$current_order[3][$j][2]."</td>");
+            echo("<td>".$current_order[3][$j][3]."</td>");
+            echo("</tr>");
+        }
+        echo("</tr>");
     }
     echo("</table>");
 }
