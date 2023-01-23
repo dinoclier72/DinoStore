@@ -36,7 +36,7 @@ function RecapTable($productTable){
 
 <html>
     <head>
-        <title>Ajouts de clients - DinoStore</title>
+        <title>La facture - DinoStore</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <?php include './components/header.php' ?>
         <link rel="stylesheet" href="css/table_effect.css">

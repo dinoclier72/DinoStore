@@ -61,7 +61,7 @@ function dropdownSelectOne($List,$selected,$Name){
 
 <html>
     <head>
-        <title>Ajouts de clients - DinoStore</title>
+        <title>editer les commandes - DinoStore</title>
         <?php include './components/header.php' ?>
     </head>
     <body>

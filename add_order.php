@@ -24,7 +24,7 @@ function article_display($article,$quantite,$prix){
 ?>
 <html>
     <head>
-        <title>Ajouter une commande - DinoStore</title>
+        <title>Ajouts de commandes - DinoStore</title>
         <?php include './components/header.php' ?>
     </head>
     <body>

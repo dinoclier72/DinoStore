@@ -17,7 +17,7 @@ array_push($table,$sTable);
 
 <html>
     <head>
-        <title>Ajouts de clients - DinoStore</title>
+        <title>editer les clients - DinoStore</title>
         <?php include './components/header.php' ?>
     </head>
     <body>

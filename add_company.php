@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Ajouts de produits - DinoStore</title>
+        <title>Ajouts d'entreprise - DinoStore</title>
         <?php include './components/header.php' ?>
     </head>
     <body>

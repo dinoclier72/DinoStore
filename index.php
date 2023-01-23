@@ -6,10 +6,7 @@
     <body>
         <?php include './components/sidebar.php' ?>
         <div class= "content">
-            <p>Les produits</p>
-            <p>Les clients</p>
-            <p>Les commandes</p>
-            <p>Les cadeaux de fidelité</p>
+            <p><-- UTILISEZ LA SIDEBAR POUR VOYAGER DANS LE SITE<p> 
         </div>
     </body>
 </html>
