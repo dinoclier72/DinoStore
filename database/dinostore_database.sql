@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 23 jan. 2023 à 03:26
+-- Généré le : lun. 23 jan. 2023 à 23:56
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.1
 
@@ -20,6 +20,34 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `dinostore`
 --
+
+DELIMITER $$
+--
+-- Fonctions
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `use_points` (`pointsToUse` INT, `idClient` INT) RETURNS INT(11) BEGIN
+DECLARE totalPoints INT;
+DECLARE pointPortion INT;
+DECLARE idPortion INT;
+SELECT SUM(points.quantity) FROM points WHERE points.id_client = idCLient INTO totalPoints;
+IF totalPoints < pointsToUse THEN
+SIGNAL SQLSTATE VALUE '99999' SET MESSAGE_TEXT = 'Pas assez de points pour l achat';
+ELSE
+boucle: WHILE pointsToUse > 0 DO
+SELECT points.id_points,points.quantity FROM points WHERE points.id_client = 8 GROUP BY points.expiry_date HAVING points.expiry_date = min(points.expiry_date) INTO idPortion, pointPortion;
+IF pointPortion > pointsToUse THEN
+UPDATE points SET points.quantity = pointPortion-pointsToUSe WHERE points.id_points = idPortion;
+SET pointsToUse = 0;
+ELSE
+DELETE FROM points WHERE points.id_points = idPortion;
+SET pointsToUse = pointsToUse - pointPortion;
+END IF;
+END WHILE boucle;
+END IF;
+RETURN pointsToUse;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -179,7 +207,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id_orders`, `id_orders_status`, `id_client`) VALUES
-(1, 1, 8);
+(1, 1, 8),
+(2, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -254,6 +283,22 @@ CREATE TABLE `points` (
 INSERT INTO `points` (`id_points`, `quantity`, `expiry_date`, `id_client`) VALUES
 (1, 100, NULL, 8);
 
+--
+-- Déclencheurs `points`
+--
+DELIMITER $$
+CREATE TRIGGER `membership_promote_to_gold` AFTER INSERT ON `points` FOR EACH ROW UPDATE client SET client.id_rank = 2 WHERE client.id_client = ANY(SELECT points.id_client FROM points GROUP BY id_client HAVING SUM(points.quantity) > 300) AND client.id_rank < 2
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `membership_promote_to_platinum` AFTER INSERT ON `points` FOR EACH ROW UPDATE client SET client.id_rank = 3 WHERE client.id_client = ANY(SELECT points.id_client FROM points GROUP BY id_client HAVING SUM(points.quantity) > 1000) AND client.id_rank < 3
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `record_points_history` BEFORE INSERT ON `points` FOR EACH ROW INSERT INTO points_history (points_history.action,points_history.quantity,points_history.id_client) VALUES ('ajout de points',NEW.quantity,NEW.id_client)
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -292,12 +337,12 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id_product`, `product_name`, `id_company`) VALUES
-(1, 'Fleur d\'or', 2),
+(1, 'Fleur d or', 2),
 (2, 'Parfum de la force', 4),
 (3, 'LV x YK - Sac Neverfull MM', 1),
-(4, 'oui', 2),
-(5, 'a', 2),
-(6, 'rien', 3),
+(4, 'Or de vie', 2),
+(5, 'savon edition prestige', 2),
+(6, 'brique', 3),
 (7, 'Fond De Teint Accord Parfait', 6),
 (8, 'Blur Jam Silicone-Free Smoothing Primer', 7);
 
@@ -321,8 +366,12 @@ CREATE TABLE `product_order` (
 --
 
 INSERT INTO `product_order` (`quantity`, `price`, `id_status_order_product`, `id_parcel`, `id_orders`, `id_product`) VALUES
-(5, '250.00', 2, NULL, 1, 2),
-(1, '600.00', 2, NULL, 1, 3);
+(1, '50.00', 2, NULL, 1, 1),
+(5, '255.00', 2, NULL, 1, 2),
+(1, '600.00', 2, NULL, 1, 3),
+(5, '0.00', 5, NULL, 1, 4),
+(1, '40.00', 2, NULL, 2, 1),
+(1, '2500.00', 8, NULL, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -587,7 +636,7 @@ ALTER TABLE `membership_rank`
 -- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_orders` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_orders` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `orders_status`
