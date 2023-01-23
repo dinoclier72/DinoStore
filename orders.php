@@ -1,10 +1,10 @@
 <?php
 include("components/database_server.php");
-$result = $database->query("SELECT DISTINCT id_orders,client_name,order_status_name FROM commande_info");
+$result = $database->query("SELECT DISTINCT id_orders,client_name,order_status_name FROM orders NATURAL JOIN client NATURAL JOIN orders_status");
 $table = [];
 for($i=0;$i<$result->num_rows;$i++){
     array_push($table,$result->fetch_row());
-    $subResult = $database->query("SELECT product_name,quantity,price,status_order_product_name FROM commande_info");
+    $subResult = $database->query("SELECT product_name,quantity,price,status_order_product_name FROM product_order NATURAL JOIN product NATURAL JOIN status_order_product WHERE id_orders =".$table[$i][0]);
     $subTable = [];
     for($j=0;$j<$subResult->num_rows;$j++){
         array_push($subTable,$subResult->fetch_row());
@@ -18,6 +18,7 @@ $tableLength = count($table);
 function order_table($table){
     echo("<table id='tblToExcl'>");
     echo("<tr>");
+    echo("<td>options</td>");
     echo("<td>id_order</td>");
     echo("<td>client_name</td>");
     echo("<td>order_status</td>");
@@ -30,6 +31,12 @@ function order_table($table){
         $current_order = $table[$i];
         $order_size = count($current_order[3]);
         echo("<tr>");
+        echo("<td rowspan = '".$order_size."'>
+        <form action='edit_orders.php' method = 'post'>
+        <input type = 'hidden' name = 'order_id' value = '".$current_order[0]."'>
+        <button>EDIT</button>
+        </form>
+        </td>");
         echo("<td rowspan = '".$order_size."'>".$current_order[0]."</td>");
         echo("<td rowspan = '".$order_size."'>".$current_order[1]."</td>");
         echo("<td rowspan = '".$order_size."'>".$current_order[2]."</td>");

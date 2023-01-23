@@ -1,0 +1,23 @@
+//fusioner les montant similaire lros d'un ajout
+CREATE TRIGGER points_bi BEFORE INSERT
+ON points
+FOR EACH ROW
+IF NEW.expiry_date = ANY(SELECT expiry_date FROM points WHERE id_client = NEW.id_client) THEN
+	UPDATE points SET points.quantity = (points.quantity+NEW.quantity) WHERE id_client = NEW.id_client AND expiry_date = NEW.expiry_date;
+	SIGNAL SQLSTATE '50002' SET MESSAGE_TEXT = 'MONTANAT REMIS SUR UN TAS SIMILAIRE EXISTANT';
+END IF;
+
+//logger dans l'historique la consomation de points
+CREATE TRIGGER log_points_partial_use BEFORE INSERT
+ON points
+FOR EACH ROW
+IF OLD.quantity > NEW.quantity THEN
+	INSERT INTO points_history (points_history.action,points_history.quantity,points_history.id_client) VALUES ('utilisation de points',OLD.quantity-NEW.quantity,NEW.id_client);
+END IF;
+
+CREATE TRIGGER log_points_full_use BEFORE DELETE
+ON points
+FOR EACH ROW
+	INSERT INTO points_history (points_history.action,points_history.quantity,points_history.id_client) VALUES ('utilisation des points,OLD.quantity,OLD.id_client);
+
+//Donner des points pour chaque euro dépensé
